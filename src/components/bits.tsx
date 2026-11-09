@@ -60,6 +60,7 @@ export function Shot({
   className,
   style,
   minHeight = 220,
+  hideIfMissing,
 }: {
   src: string;
   alt: string;
@@ -67,8 +68,11 @@ export function Shot({
   className?: string;
   style?: CSSProperties;
   minHeight?: number;
+  /** Render nothing (instead of a placeholder) until the file exists. */
+  hideIfMissing?: boolean;
 }) {
   const [missing, setMissing] = useState(false);
+  if (missing && hideIfMissing) return null;
   if (missing) {
     return (
       <div className="shot--placeholder" style={{ minHeight, ...style }} role="img" aria-label={alt}>

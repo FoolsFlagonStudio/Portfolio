@@ -57,7 +57,7 @@ export default function Home() {
         <SectionHead id="about-h" title="The person behind it" />
         <div className="about-split">
           <div className="about-split__photo" style={{ color: '#9A8F78' }}>
-            <Shot src="/images/about/evan.jpg" alt={site.owner} label="your photo" style={{ borderRadius: 18 }} minHeight={320} />
+            <Shot src="/images/about/evan.jpg" alt={site.owner} label="your photo" style={{ borderRadius: 18 }} hideIfMissing minHeight={320} />
           </div>
           <div className="about-split__text">
             <p>

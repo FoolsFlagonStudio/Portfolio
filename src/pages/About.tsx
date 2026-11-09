@@ -62,7 +62,7 @@ export default function About() {
             </div>
           </div>
           <div className="about-split__photo" style={{ color: '#9A8F78' }}>
-            <Shot src="/images/about/evan.jpg" alt={site.owner} label="your photo" style={{ borderRadius: 18 }} minHeight={380} />
+            <Shot src="/images/about/evan.jpg" alt={site.owner} label="your photo" style={{ borderRadius: 18 }} hideIfMissing minHeight={380} />
           </div>
         </div>
       </section>
