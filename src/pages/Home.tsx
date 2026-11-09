@@ -14,13 +14,12 @@ export default function Home() {
   return (
     <div className="container">
       <section className="home-hero">
-        <p className="eyebrow">Independent studio · {site.tagline}</p>
-        <h1 className="display">
-          Fools Flagon is the studio of {site.owner}.
-        </h1>
+        <p className="eyebrow">{site.name} · {site.owner}</p>
+        <h1 className="display">Software, designed and built with intent.</h1>
         <p className="lead">
-          I'm a full-stack engineer with a graphic design background. I design and build web apps, mobile apps, data
-          tools and brands, from the first sketch to production.
+          I'm {site.owner}, a full-stack engineer with a graphic design background. Fools Flagon is my independent
+          studio, where I design and build web apps, mobile apps, data tools and brands, from the first sketch to
+          production.
         </p>
         <div className="btn-row">
           <ButtonLink to="/work" primary>

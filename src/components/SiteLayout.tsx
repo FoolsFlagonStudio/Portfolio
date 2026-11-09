@@ -21,7 +21,7 @@ export default function SiteLayout() {
       <header className="site-header">
         <div className="site-header__inner">
           <Link to="/" className="brand-logo" aria-label={`${site.name} home`}>
-            <img src="/images/fools-flagon-banner.png" alt={`${site.name} - ${site.tagline}`} />
+            <img src="/images/fools-flagon-logo.png" alt={`${site.name} - ${site.tagline}`} />
           </Link>
           {isMobile ? (
             <Button
