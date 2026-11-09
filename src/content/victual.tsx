@@ -346,9 +346,9 @@ export const victual: CaseStudy = {
   ],
   stats: [
     { value: '811', label: 'recipes with nutrition, cost and diet labels' },
-    { value: '337', label: 'ingredients in a USDA-backed catalog' },
-    { value: '98%', label: 'of recipes with a complete cost' },
-    { value: '~225', label: 'backend tests' },
+    { value: '349', label: 'ingredients, all priced and backed by USDA nutrition data' },
+    { value: '99%', label: 'of recipes fully costed (806 of 811)' },
+    { value: '494', label: 'backend tests, all passing' },
   ],
   statsNote: (
     <>
