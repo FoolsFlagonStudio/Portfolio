@@ -40,3 +40,4 @@ npm run todos      # list every placeholder still on the site
 1. Import this repo at vercel.com/new. It detects Vite: build `npm run build`, output `dist`.
 2. `vercel.json` already sends every route to `index.html`, so deep links like `/work/sofron` work.
 3. Add your domain under Project → Settings → Domains and follow the DNS steps.
+4. Contact form: add `RESEND_API_KEY`, `CONTACT_TO` and `CONTACT_FROM` under Project → Settings → Environment Variables, then redeploy. Details in `CONTENT_CHECKLIST.md`. Without them the form opens the visitor's email app instead.

@@ -36,6 +36,8 @@ export interface CaseStudy {
   pitch: ReactNode;
   meta: { label: string; value: ReactNode }[];
   heroMedia: ReactNode;
+  /** Put the hero image on its own full-width row (for wide desktop screenshots). */
+  heroWide?: boolean;
   problem?: { label: string; text: ReactNode }[];
   chapters: Chapter[];
   stats: { value: ReactNode; label: string }[];

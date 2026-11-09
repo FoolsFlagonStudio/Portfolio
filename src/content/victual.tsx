@@ -1,5 +1,5 @@
 import type { CaseStudy } from '../case-study/types';
-import { ButtonLink, Shot, Todo } from '../components/bits';
+import { ButtonLink, Shot } from '../components/bits';
 
 const img = (name: string) => `/images/victual/${name}`;
 
@@ -49,7 +49,7 @@ export const victual: CaseStudy = {
   meta: [
     { label: 'Role', value: 'Design + full stack' },
     { label: 'Platform', value: 'iOS · Android · web' },
-    { label: 'Timeline', value: <Todo>START - END</Todo> },
+    { label: 'Timeline', value: 'Sept 2026 - present' },
     { label: 'Status', value: 'Closed testing' },
   ],
   heroMedia: <Shot src={img('home.webp')} alt="Victual home screen" className="phone" style={{ width: 230 }} />,
@@ -135,14 +135,20 @@ export const victual: CaseStudy = {
         ),
         media: (
           <div style={{ display: 'flex', gap: 10, overflowX: 'auto', paddingBottom: 4 }}>
-            {['budget', 'household', 'diets', 'review', 'building'].map((s) => (
-              <div key={s} style={{ flex: '0 0 110px' }}>
+            {[
+              ['intro', 'intro screen'],
+              ['budget', 'weekly budget step'],
+              ['diets', 'diets step'],
+              ['allergies', 'allergies step'],
+              ['macros', 'macro targets step'],
+            ].map(([s, label]) => (
+              <div key={s} style={{ flex: '0 0 132px' }}>
                 <Shot
-                  src={img(`onboarding-${s}.png`)}
-                  alt={`Onboarding: ${s}`}
-                  label={s}
-                  minHeight={238}
-                  style={{ borderRadius: 14 }}
+                  src={img(`onboarding-${s}.webp`)}
+                  alt={`Onboarding, ${label}`}
+                  label={label}
+                  minHeight={274}
+                  style={{ borderRadius: 16, boxShadow: '0 10px 24px rgba(61,36,51,0.25)' }}
                 />
               </div>
             ))}
@@ -180,8 +186,9 @@ export const victual: CaseStudy = {
         body: (
           <>
             <p>
-              The week shows by day, with leftovers marked. A lock keeps a meal through a regenerate, and a swap
-              sheet shows the price difference before you commit.
+              The week shows by day, with leftovers marked. A lock keeps a meal through a regenerate. The swap sheet
+              shows each option's price difference before you commit, and which days the change touches, since one
+              cooked meal covers its leftovers too.
             </p>
             <div className="pill-row" style={{ marginTop: 18, fontFamily: "'Poppins', sans-serif", fontWeight: 600 }}>
               <span className="pill" style={{ background: '#9BC59D', color: '#1F3326', border: 0 }}>{lock}Lock</span>
@@ -191,8 +198,9 @@ export const victual: CaseStudy = {
           </>
         ),
         media: (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Shot src={img('plan.webp')} alt="Plan screen" className="phone" style={{ width: 230 }} />
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+            <Shot src={img('plan.webp')} alt="Plan screen" className="phone" style={{ width: 200 }} />
+            <Shot src={img('swap.webp')} alt="Swap sheet with price differences" className="phone" style={{ width: 200 }} />
           </div>
         ),
       },
@@ -255,14 +263,15 @@ export const victual: CaseStudy = {
               <span className="box">seed</span>
             </div>
             <div className="data-table-wrap">
-              <table className="data-table" style={{ minWidth: 320 }}>
+              <table className="data-table" style={{ minWidth: 440 }}>
                 <thead>
-                  <tr><th>Package text</th><th>Parsed</th></tr>
+                  <tr><th>Recipes need</th><th>The list buys</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td>"3 lb"</td><td><Todo>parser output</Todo></td></tr>
-                  <tr><td>"1/2 gal"</td><td><Todo>parser output</Todo></td></tr>
-                  <tr><td>"12 x 12 fl oz"</td><td><Todo>parser output</Todo></td></tr>
+                  <tr><td>2.1 oz bell pepper</td><td>1 × green bell pepper, 1 ct · $0.89</td></tr>
+                  <tr><td>6 g garlic</td><td>1 × garlic, 1 ct · $0.89</td></tr>
+                  <tr><td>4.2 oz spinach</td><td>1 × chopped spinach, 10 oz · $1.79</td></tr>
+                  <tr><td>10 oz romaine</td><td>1 × chopped romaine, 32 oz · $6.29</td></tr>
                 </tbody>
               </table>
             </div>
@@ -302,8 +311,9 @@ export const victual: CaseStudy = {
           </>
         ),
         media: (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Shot src={img('recipe.webp')} alt="Recipe detail screen" className="phone" style={{ width: 230 }} />
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+            <Shot src={img('recipe.webp')} alt="Recipe detail screen" className="phone" style={{ width: 200 }} />
+            <Shot src={img('cook-mode.webp')} alt="Cook mode, one step at a time" className="phone" style={{ width: 200 }} />
           </div>
         ),
       },
@@ -342,7 +352,9 @@ export const victual: CaseStudy = {
   ],
   statsNote: (
     <>
-      Next: a closed test on Google Play, then the App Store. <Todo>What you learned building Victual</Todo>
+      Next: a closed test on Google Play, then the App Store. I started Victual to deepen my Java ahead of a
+      master's in computer science. I'd only used Java on its own before, so this was my first real project with
+      Spring Boot.
     </>
   ),
   cta: {

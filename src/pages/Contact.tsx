@@ -7,6 +7,7 @@ interface Values {
   email: string;
   reason: string;
   message: string;
+  company?: string;
 }
 
 const reasons = [
@@ -26,10 +27,12 @@ export default function Contact() {
 
   const onFinish = async (v: Values) => {
     const reason = reasons.find((r) => r.value === v.reason)?.label ?? v.reason;
-    if (!site.formEndpoint) {
-      // No form service yet: hand off to the visitor's email app.
+    const openEmailApp = () => {
       const body = `${v.message}\n\n${v.name}\n${v.email}`;
       window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(`${reason} - ${v.name}`)}&body=${encodeURIComponent(body)}`;
+    };
+    if (!site.formEndpoint) {
+      openEmailApp();
       return;
     }
     setSending(true);
@@ -42,7 +45,9 @@ export default function Contact() {
       if (!res.ok) throw new Error(String(res.status));
       setSent(true);
     } catch {
-      message.error(`That didn't send. You can email me directly at ${site.email}.`);
+      // Never lose a message: fall back to the visitor's email app, prefilled.
+      message.info(`Opening your email app instead. You can also write to ${site.email}.`);
+      openEmailApp();
     } finally {
       setSending(false);
     }
@@ -85,7 +90,11 @@ export default function Contact() {
                     <Input type="email" autoComplete="email" />
                   </Form.Item>
                   <Form.Item label="Message" name="message" rules={[{ required: true, message: 'Please add a message' }]}>
-                    <Input.TextArea rows={6} />
+                    <Input.TextArea rows={6} maxLength={5000} />
+                  </Form.Item>
+                  {/* Spam trap: hidden from people, filled by bots. */}
+                  <Form.Item name="company" hidden>
+                    <Input tabIndex={-1} autoComplete="off" />
                   </Form.Item>
                   <Button type="primary" htmlType="submit" shape="round" loading={sending} block>
                     Send

@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
 import { Tag } from 'antd';
-import { ButtonLink, CtaPanel, SectionHead, Shot, Todo } from '../components/bits';
+import { ButtonLink, CtaPanel, SectionHead, Shot } from '../components/bits';
 import { site } from '../config/site';
 
 const path = [
-  { when: 'Design', what: "Bachelor's in Graphic Design, SUNY Cobleskill", note: 'Where the eye for type, color and layout comes from. I also tutored classmates on the material we were learning together.' },
-  { when: 'Engineering', what: "Flatiron School's Software Engineering program", note: 'Full-stack JavaScript and Python, and the start of building products instead of just designing them.' },
+  { when: 'Design', what: "Bachelor's in Graphic Design, SUNY Cobleskill", note: 'Where the eye for type, color and layout comes from, and where I fell in love with web design. I also tutored classmates on the material we were learning together.' },
+  { when: 'Engineering', what: "Flatiron School's Software Engineering bootcamp", note: 'The jump from designing products to building them.' },
+  { when: 'Fundamentals', what: 'CS coursework', note: 'Data structures and algorithms, discrete math, computer architecture and Java, preparing for a master’s in computer science.' },
   { when: 'Business', what: 'Topdeck Tavern', note: 'I run an online trading card shop, with an inventory and fulfillment system I built myself in Google Sheets and Apps Script.' },
-  { when: 'Now', what: 'Fools Flagon', note: 'Designing and building my own products, Victual, Sofron and EdgeForge, and taking on client work.' },
+  { when: 'Now', what: 'Fools Flagon', note: 'Designing and building my own products, like Victual and Sofron, and open to client work.' },
 ];
 
 const tools: { group: string; items: string[] }[] = [
   { group: 'Languages', items: ['JavaScript', 'TypeScript', 'Python', 'Java', 'HTML', 'CSS'] },
   { group: 'Frontend', items: ['React', 'React Native', 'Vite', 'Ant Design', 'Bootstrap'] },
-  { group: 'Backend + data', items: ['Node.js', 'Express', 'Spring Boot', 'Flask', 'PostgreSQL'] },
+  { group: 'Backend + data', items: ['Node.js', 'Express', 'Spring Boot', 'Flask', 'PostgreSQL', 'Redis'] },
   { group: 'Cloud + tools', items: ['Docker', 'AWS', 'Git', 'Postman', 'Jest', 'Playwright'] },
   { group: 'Design', items: ['Figma', 'Illustrator', 'Photoshop', 'After Effects', 'Premiere Pro', 'InDesign'] },
   { group: 'Also', items: ['Stripe', 'Pandas', 'Google Apps Script', 'OpenAI API', 'Anthropic API'] },
@@ -32,23 +33,29 @@ export default function About() {
           <div className="about-split__text">
             <h1 className="display">Hi, I'm {site.owner.split(' ')[0]}.</h1>
             <p className="lead" style={{ marginBottom: 20 }}>
-              Fools Flagon is my one-person studio. I'm a full-stack engineer with a graphic design background, so I
-              can take a product from the logo to the database.
+              Fools Flagon is my one-person studio. I'm a full-stack software engineer with a graphic design
+              background, and that combination shapes everything I build.
             </p>
             <p>
-              <Todo>A few sentences in your own voice: what got you into building things, what kind of work you enjoy most, and what you're like to work with.</Todo>
+              I don't just make things work, I make them feel intentional. Most of my interfaces start as wireframes
+              and comps in Figma before I write a line of frontend code.
+            </p>
+            <p>
+              My path into engineering wasn't traditional. I studied graphic design, fell in love with web design, and
+              went all in with Flatiron School's software engineering bootcamp. Since then I've learned most of my
+              stack by building real products: TypeScript, Node.js, PostgreSQL, Python, Redis, AWS and Docker. I've
+              also been strengthening my CS fundamentals, with recent coursework in data structures and algorithms,
+              discrete math, computer architecture and Java.
             </p>
             <div className="panel" style={{ marginTop: 8 }}>
               <p className="label" style={{ marginBottom: 6 }}>What I'm looking for</p>
               <p style={{ margin: 0 }}>{site.lookingFor}</p>
             </div>
             <div className="btn-row">
-              {site.resumeUrl ? (
+              {site.resumeUrl && (
                 <ButtonLink to={site.resumeUrl} primary>
                   Download resume
                 </ButtonLink>
-              ) : (
-                <Todo>Add resume: public/resume.pdf + site.resumeUrl</Todo>
               )}
               <ButtonLink to={site.linkedin}>LinkedIn</ButtonLink>
               <ButtonLink to={site.github}>GitHub</ButtonLink>

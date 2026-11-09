@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { CaseStudy } from '../case-study/types';
-import { ButtonLink, Shot, Todo } from '../components/bits';
+import { ButtonLink, Shot } from '../components/bits';
 import { projectLinks } from './links';
 
 const img = (name: string) => `/images/sofron/${name}`;
@@ -56,14 +56,9 @@ export const sofron: CaseStudy = {
     { label: 'Started', value: 'Fall 2025' },
     { label: 'Status', value: 'Pre-launch · live demo' },
   ],
+  heroWide: true,
   heroMedia: (
-    <Shot
-      src={img('dashboard.png')}
-      alt="Sofron clinic dashboard"
-      label="clinic dashboard"
-      style={{ ...shotStyle, width: '100%', maxWidth: 520 }}
-      minHeight={300}
-    />
+    <Shot src={img('dashboard.webp')} alt="Sofron clinic dashboard showing today's appointments" className="screen" minHeight={300} />
   ),
   problem: [
     {
@@ -94,7 +89,7 @@ export const sofron: CaseStudy = {
             </p>
             <p>
               Every clinic page shares one shell: sidebar, a header with the page's main action, then tables, forms
-              or cards.
+              or cards. The marketing site is built from the same system.
             </p>
           </>
         ),
@@ -119,7 +114,7 @@ export const sofron: CaseStudy = {
                 <div key={c} style={{ height: 28, borderRadius: 6, background: c, border: '1px solid #E2E8F0' }} />
               ))}
             </div>
-            <Shot src={img('wireframe-shell.png')} alt="App shell wireframe next to the built page" label="wireframe → built page" style={shotStyle} minHeight={170} />
+            <Shot src={img('landing.webp')} alt="Sofron marketing site hero" style={shotStyle} minHeight={170} />
             <p style={{ margin: 0, display: 'flex', flexWrap: 'wrap', gap: '4px 20px', alignItems: 'baseline' }}>
               <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: 28 }}>Aa Inter</span>
               <span style={{ fontFamily: "'Source Sans 3', sans-serif", fontWeight: 300, fontSize: 28, color: '#0F766E' }}>
@@ -191,14 +186,12 @@ export const sofron: CaseStudy = {
           </>
         ),
         media: (
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'flex-start' }}>
-            <div style={{ flex: '2 1 260px' }}>
-              <Shot src={img('booking-datetime.png')} alt="Booking flow, date and time step" label="booking: date + time step" style={shotStyle} minHeight={280} />
-            </div>
-            <div style={{ flex: '1 1 150px' }}>
-              <Shot src={img('booking-mobile.png')} alt="Booking flow on a phone" label="booking on mobile" style={shotStyle} minHeight={280} />
-            </div>
-          </div>
+          <Shot
+            src={img('booking-datetime.webp')}
+            alt="Booking flow, date and time step, with the appointment summary beside it"
+            className="screen"
+            minHeight={280}
+          />
         ),
       },
       engineering: {
@@ -207,27 +200,30 @@ export const sofron: CaseStudy = {
         body: (
           <>
             <p>
-              The hardest problem in the project. A slot can look open to two patients at once. Checking availability
-              and then saving is a race, so the check and the reservation have to happen as one step.
+              The hardest problem in the project. Two patients can open the same day at the same time and see the
+              same open slot, and a booking flow takes a few minutes to finish.
             </p>
-            <p>The patient who loses the race gets a clear "that time was just taken" state instead of a silent overlap on the clinic's calendar.</p>
+            <p>
+              So picking a time places a temporary hold on that slot while the patient finishes booking. Every other
+              availability check leaves held slots out, so nobody else can pick it. If the patient walks away, the
+              hold expires and the slot opens back up.
+            </p>
           </>
         ),
         media: (
           <div className="stack">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 10 }}>
-              <div className="box">Patient A<br /><span className="box__sub">picks Tue 9:00</span></div>
-              <div className="box">Patient B<br /><span className="box__sub">picks Tue 9:00</span></div>
-            </div>
+            <div className="box">Patient A <span className="box__sub">picks Tue 9:00</span></div>
+            <div className="flow-down">↓</div>
             <div className="box box--accent">
-              <span className="box__accent">Reserve slot</span>
+              <span className="box__accent">Hold the slot</span>
               <br />
-              <span className="box__sub"><Todo>How: e.g. transaction + row lock, or a DB constraint on specialist + time</Todo></span>
+              <span className="box__sub">locked for 15-30 minutes while A finishes booking</span>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 10 }}>
-              <div className="box" style={{ borderColor: '#22C55E', color: '#86EFAC' }}>A · confirmed</div>
-              <div className="box" style={{ borderColor: '#EF4444', color: '#FCA5A5' }}>B · slot taken, pick again</div>
+              <div className="box">Patient B opens Tuesday<br /><span className="box__sub">9:00 isn't in the times returned</span></div>
+              <div className="box">A finishes, or the hold expires<br /><span className="box__sub">booked, or back in the pool</span></div>
             </div>
+            <div className="box" style={{ borderColor: '#22C55E', color: '#86EFAC' }}>No overlapping appointments on the clinic's calendar</div>
           </div>
         ),
       },
@@ -244,7 +240,7 @@ export const sofron: CaseStudy = {
             calendar, not a settings form.
           </p>
         ),
-        media: <Shot src={img('scheduling.png')} alt="Weekly hours and overrides" label="weekly hours + overrides" style={{ ...shotStyle, border: 0 }} minHeight={300} />,
+        media: <Shot src={img('scheduling.webp')} alt="Weekly availability table" style={{ ...shotStyle, border: 0 }} minHeight={240} />,
       },
       engineering: {
         eyebrow: 'III · AVAILABILITY',
@@ -281,13 +277,15 @@ export const sofron: CaseStudy = {
         title: 'The front desk in one tab',
         reverse: true,
         body: (
-          <p>
-            Appointments, services, schedules, patients, documents and analytics behind one sidebar. The details
-            panel puts check-in and reschedule one click from the table, and services can be assigned to specialists
-            right where they're created.
-          </p>
+          <>
+            <p>
+              Appointments, specialists, services, schedules, patients, documents and analytics behind one sidebar.
+              The dashboard opens on today: appointments, check-ins, no-shows and what's left.
+            </p>
+            <p>Click any appointment to see its details, the patient's submitted intake forms and any notes.</p>
+          </>
         ),
-        media: <Shot src={img('appointments.png')} alt="Appointments table with the details panel open" label="appointments + details panel" style={shotStyle} minHeight={300} />,
+        media: <Shot src={img('appointments.webp')} alt="Appointments table with the details panel open" style={shotStyle} minHeight={240} />,
       },
       engineering: {
         eyebrow: 'IV · TENANCY + ACCESS',
@@ -303,10 +301,7 @@ export const sofron: CaseStudy = {
           <div className="stack">
             <div className="box box--accent"><span className="box__accent">Clinic</span> <span className="box__sub">clinic ID scopes every query</span></div>
             <div className="box" style={{ marginLeft: 20 }}>Clinic admin <span className="faint">· edits business, invites staff</span></div>
-            <div style={{ marginLeft: 40, display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 10 }}>
-              <div className="box"><Todo>Role</Todo><br /><span className="faint"><Todo>can see</Todo></span></div>
-              <div className="box"><Todo>Role</Todo><br /><span className="faint"><Todo>can see</Todo></span></div>
-            </div>
+            <div className="box" style={{ marginLeft: 40 }}>Staff profiles <span className="faint">· each role sees only what it needs</span></div>
             <div className="pill-row" style={{ marginTop: 4 }}>
               <span className="pill">Encrypted in transit</span>
               <span className="pill">Encrypted at rest</span>
@@ -324,18 +319,15 @@ export const sofron: CaseStudy = {
         title: 'Forms in, answers out',
         body: (
           <p>
-            Clinics build their own intake forms and attach them to services, and patients fill them in before the
-            visit. Analytics comes as chart cards, one chart each, with clear titles, labeled axes and tooltips
-            instead of legends.
+            Clinics build their own intake forms from text, select and checkbox fields and attach them to services,
+            and patients fill them in before the visit. Analytics breaks the practice down by appointments, revenue,
+            patient demographics and services, over any date range.
           </p>
         ),
         media: (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 12 }}>
-            <div style={{ gridColumn: '1 / -1' }}>
-              <Shot src={img('template-editor.png')} alt="Intake form template editor" label="template editor" style={shotStyle} minHeight={160} />
-            </div>
-            <Shot src={img('analytics-1.png')} alt="Analytics chart" label="analytics chart" style={shotStyle} minHeight={130} />
-            <Shot src={img('analytics-2.png')} alt="Analytics chart" label="analytics chart" style={shotStyle} minHeight={130} />
+          <div className="stack" style={{ gap: 12 }}>
+            <Shot src={img('analytics-demographics.webp')} alt="Analytics: summary numbers, age and gender distribution" style={shotStyle} minHeight={160} />
+            <Shot src={img('analytics-services.webp')} alt="Analytics: most booked and highest revenue services" style={shotStyle} minHeight={120} />
           </div>
         ),
       },
@@ -374,27 +366,24 @@ export const sofron: CaseStudy = {
   stats: [
     { value: '2', label: 'portals: clinic and patient' },
     { value: '7', label: 'clinic workspace areas' },
-    { value: <Todo>N</Todo>, label: 'automated tests' },
-    { value: <Todo>N</Todo>, label: 'API endpoints' },
+    { value: '669', label: 'automated tests across 63 test files' },
+    { value: '115', label: 'API endpoints: 46 GET · 30 POST · 31 PATCH · 8 DELETE' },
   ],
-  statsNote: (
-    <>
-      Fully built and running as a live demo, with Stripe payments slotted in for launch.{' '}
-      <Todo>What you learned building Sofron</Todo>
-    </>
-  ),
-  cta: {
-    title: 'See it running',
-    text: 'The demo has sample clinics, staff and patients. No real health data.',
-    actions: (
-      <>
-        {projectLinks.sofronDemo ? (
-          <ButtonLink to={projectLinks.sofronDemo} primary>Try the demo</ButtonLink>
-        ) : (
-          <Todo>Sofron demo URL</Todo>
-        )}
-        <ButtonLink to="/contact">Get in touch</ButtonLink>
-      </>
-    ),
-  },
+  statsNote: 'Fully built and running as a live demo, with Stripe payments slotted in for launch.',
+  cta: projectLinks.sofronDemo
+    ? {
+        title: 'See it running',
+        text: 'The demo has sample clinics, staff and patients. No real health data.',
+        actions: (
+          <>
+            <ButtonLink to={projectLinks.sofronDemo} primary>Try the demo</ButtonLink>
+            <ButtonLink to="/contact">Get in touch</ButtonLink>
+          </>
+        ),
+      }
+    : {
+        title: 'Want a walkthrough?',
+        text: "Sofron runs as a live demo with sample clinics and patients. I'm happy to show you around it.",
+        actions: <ButtonLink to="/contact" primary>Get in touch</ButtonLink>,
+      },
 };

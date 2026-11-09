@@ -1,7 +1,6 @@
 import type { CaseStudy } from '../case-study/types';
 import { victual } from './victual';
 import { sofron } from './sofron';
-import { projectLinks } from './links';
 
 export const caseStudies: CaseStudy[] = [victual, sofron];
 
@@ -34,18 +33,8 @@ export const projects: ProjectCard[] = [
     summary: 'Booking and practice management for cash-pay clinics, with clinic and patient portals.',
     status: 'Pre-launch · live demo',
     tags: ['React', 'TypeScript', 'Node + Express', 'PostgreSQL'],
-    cover: { src: '/images/sofron/dashboard.png', alt: 'Sofron clinic dashboard', bg: '#F7FAFA' },
+    cover: { src: '/images/sofron/booking-datetime.webp', alt: 'Sofron patient booking flow', bg: '#F7FAFA' },
     href: '/work/sofron',
     linkLabel: 'Read the case study',
-  },
-  {
-    slug: 'edgeforge',
-    name: 'EdgeForge',
-    summary: 'A sports analytics platform for MLB, NBA, NHL and WNBA. Frontend revamp in progress.',
-    status: 'Public beta · case study coming soon',
-    tags: ['Analytics', 'Data pipelines', 'Full stack'],
-    cover: { src: '/images/edgeforge/cover.png', alt: 'EdgeForge', bg: '#0B0907' },
-    href: projectLinks.edgeforge,
-    linkLabel: 'Visit EdgeForge',
   },
 ];

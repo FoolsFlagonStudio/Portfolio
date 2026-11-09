@@ -104,7 +104,7 @@ export default function CaseStudyPage({ study }: { study: CaseStudy }) {
   return (
     <>
       <div className="container">
-        <section className="cs-hero">
+        <section className={`cs-hero${study.heroWide ? ' cs-hero--wide' : ''}`}>
           <div className="cs-hero__text">
             <p className="eyebrow">{study.kicker}</p>
             <h1 style={{ margin: 0 }}>{study.logo}</h1>
